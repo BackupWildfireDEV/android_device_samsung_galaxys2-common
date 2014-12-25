@@ -87,7 +87,7 @@ on post-fs-data
     insmod /system/lib/modules/j4fs.ko
     insmod /system/lib/modules/Si4709_driver.ko
 
-# mount param.lfs
+# Mount param.lfs
     mount j4fs /dev/block/mmcblk0p4 /mnt/.lfs
 
 # MDNS
@@ -103,7 +103,7 @@ on post-fs-data
     mkdir /data/gps 771 system system
     chown system system /data/gps
 
-    # give system access to wpa_supplicant.conf for backup and restore
+# Give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi wifi
     chmod 0770 /data/misc/wifi
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
@@ -112,12 +112,12 @@ on post-fs-data
     chown dhcp dhcp /data/misc/dhcp
     chown wifi root /dev/rfkill
 
-#DRM directory creation
+# DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
     chmod 0775 /system/etc/security/.drm
 
-    # Added for Playready DRM Support
+# Added for Playready DRM Support
     mkdir /data/data/.drm 0775
     chown drm system /data/data/.drm
     chmod 0775 /data/data/.drm
@@ -125,12 +125,12 @@ on post-fs-data
     chown drm system /data/data/.drm/.playready
     chmod 0775 /data/data/.drm/.playready
 
-    #Added drm folder to copy drm plugins
+# Added drm folder to copy drm plugins
     mkdir /system/lib/drm 0775
     chown root root /system/lib/drm
     chmod 0775 /system/lib/drm
 
-    # DivX DRM
+# DivX DRM
     mkdir /efs/.files 0775
     mkdir /efs/.files/.dx1 0775
     mkdir /efs/.files/.dm33 0775
@@ -146,7 +146,7 @@ on post-fs-data
     chmod 0660 /dev/usb_mtp_gadget
     chown system system /dev/usb_mtp_gadget
 
-# terminal mode
+# Terminal mode
     chmod 0660 /sys/class/android_usb/android0/terminal_version
     chown system system /sys/class/android_usb/android0/terminal_version
 
@@ -155,26 +155,26 @@ on post-fs-data
     chmod 0600 /dev/pn544
     chown nfc nfc /dev/pn544
 
-# setup for alsa snd device
+# Setup for alsa snd device
     chmod 0770 /dev/snd/pcmC0D0c
     chmod 0770 /dev/snd/pcmC0D0p
     chmod 0770 /dev/snd/controlC0
     chmod 0770 /dev/snd/timer
     chmod 0770 /dev/snd/hwC0D0
 
-    # create log system
+# Create log system
     mkdir /data/log 0775 system log
     chown system log /data/log
 
     chmod 0775 /data/log
     chmod 0775 /data/anr
 
-#panorama directory creation
+# Panorama directory creation
     mkdir /data/pxtmpdir 0775
     chown system system /data/pxtmpdir
     chmod 0775 /data/pxtmpdir
 
-    # permission for HDMI audio path
+# Permission for HDMI audio path
     chown media audio /sys/class/hdmi_audio/hdmi_audio/hdmi_audio_set_ext
 
 # Permissions for gpio_keys.
@@ -300,7 +300,7 @@ on post-fs-data
     chown system radio /sys/devices/platform/s5p-ehci/ehci_runtime
     chown system radio /sys/devices/virtual/misc/multipdp/waketime    
 
-# for datarouter
+# For datarouter
     chown system system /dev/dun
     chown system system /dev/ttyGS0
     chown system system /dev/ttyGS1
@@ -311,12 +311,12 @@ on post-fs-data
     write /sys/devices/system/cpu/cpufreq/ondemand/down_differential 5
     write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 85
 
-#panorama directory creation
+# Panorama directory creation
     mkdir /data/pxtmpdir 0775
     chown system system /data/pxtmpdir
     chmod 0775 /data/pxtmpdir
 
-# backlight permissions
+# Backlight permissions
     chown system system /sys/class/backlight/pwm-backlight/brightness
     chmod 0660 /sys/class/backlight/pwm-backlight/brightness
     chown radio system /sys/devices/virtual/misc/melfas_touchkey/brightness
@@ -338,13 +338,13 @@ on post-fs-data
     chown radio system /sys/devices/virtual/accelerometer/accelerometer/acc_file
     chown radio system /sys/devices/virtual/sec/gsensorcal/calibration
 
-# for device encryption
+# For device encryption
     setprop vold.post_fs_data_done 1
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-# permissions for NFC
+# Permissions for NFC
     setprop ro.nfc.port "I2C"
     chmod 0600 /dev/pn544
     chown nfc nfc /dev/pn544
@@ -352,7 +352,7 @@ on boot
 # Device Encryption by B2B Security Lab. 
     setprop ro.crypto.keyfile.userdata /efs/metadata
 
-# fake some battery state
+# Fake some battery state
     setprop status.battery.state Slow
     setprop status.battery.level 5
     setprop status.battery.level_raw  50
@@ -378,7 +378,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
         -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin \
         -puse_p2p_group_interface=1 \
         -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   We will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
     #   user wifi
     #   group wifi inet keystore
@@ -392,7 +392,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
         -c/data/misc/wifi/wpa_supplicant.conf \
         -I/system/etc/wifi/wpa_supplicant.conf \
         -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   We will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
     #   user wifi
     #   group wifi inet keystore
@@ -441,14 +441,14 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
 	disabled
 	oneshot
 
-# bluetooth mac address
+# Bluetooth mac address
 service bdaddr /system/bin/bdaddr_read
     class main
     user root
     disabled
     oneshot
      
-# bugreport is triggered by holding down volume down, volume up and power
+# Bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/bugmailer.sh -v
     class main
     disabled
