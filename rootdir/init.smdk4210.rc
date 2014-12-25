@@ -62,6 +62,11 @@ service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdis
     class late_start
     disabled
 
+service charger /sbin/healthd -c
+    class charger
+    critical
+    seclabel u:r:healthd:s0
+
 # Restorecon
     restorecon /efs/nv_data.bin
     restorecon /efs/nv_data.bin.md5
@@ -81,7 +86,7 @@ on post-fs-data
 # insmod kernel modules
     insmod /system/lib/modules/j4fs.ko
     insmod /system/lib/modules/Si4709_driver.ko
-    
+
 # mount param.lfs
     mount j4fs /dev/block/mmcblk0p4 /mnt/.lfs
 
