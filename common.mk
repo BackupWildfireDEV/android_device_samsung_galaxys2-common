@@ -55,6 +55,10 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
+    
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
